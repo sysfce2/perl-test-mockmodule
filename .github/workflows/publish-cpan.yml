@@ -19,7 +19,7 @@ jobs:
       - name: Configure
         run: perl Build.PL
       - name: install more deps
-        run ./Build installdeps
+        run: ./Build installdeps
       - name: Test
         run: ./Build test
       - name: Build
