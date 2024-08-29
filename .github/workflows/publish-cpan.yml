@@ -11,6 +11,8 @@ jobs:
     environment: Release
     steps:
       - uses: actions/checkout@v2
+      - name: debug
+        run: ls && echo $GITHUB_REF
       - name: update-version
         run: |
           sed -i "s/^\\\$VERSION = '.*';/\\\$VERSION = '${GITHUB_REF}';/" lib/Test/MockModule.pm
