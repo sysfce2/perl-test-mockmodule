@@ -14,8 +14,12 @@ jobs:
       - name: update-version
         run: |
           sed -i "s/^\\\$VERSION = '.*';/\\\$VERSION = '${GITHUB_REF_NAME}';/" lib/Test/MockModule.pm
+      - name: install deps
+        run: cpan install Module::Build
       - name: Configure
         run: perl Build.PL
+      - name: install more deps
+        run ./Build installdeps
       - name: Test
         run: ./Build test
       - name: Build
