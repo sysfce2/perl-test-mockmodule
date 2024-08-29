@@ -14,8 +14,17 @@ jobs:
       - name: update-version
         run: |
           sed -i "s/^\\\$VERSION = '.*';/\\\$VERSION = '${GITHUB_REF_NAME}';/" lib/Test/MockModule.pm
-      - uses: cucumber/action-publish-cpan@v1.0.0
+      - name: Configure
+        run: perl Build.PL
+      - name: Test
+        run: ./Build test
+      - name: Build
+        run: ./Build 
+      - name: Deliver locally
+        run: ./Build dist
+      - name: Upload to CPAN
+        id: upload
+        uses: thibaultduponchelle/action-upload-to-cpan@master
         with:
-          cpan-user: ${{ secrets.CPAN_USER }}
-          cpan-password: ${{ secrets.CPAN_PASSWORD }}
-          working-directory: "."
+            username: ${{ secrets.USERNAME }}
+            password: ${{ secrets.PASSWORD }}
