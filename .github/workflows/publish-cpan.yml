@@ -15,7 +15,7 @@ jobs:
         run: |
           sed -i "s/^\\\$VERSION = '.*';/\\\$VERSION = '${GITHUB_REF_NAME}';/" lib/Test/MockModule.pm
       - name: install deps
-        run: cpan install Module::Build
+        run: PERL_MM_USE_DEFAULT=1 perl -MCPAN -e 'install My::Module'
       - name: Configure
         run: perl Build.PL
       - name: install more deps
