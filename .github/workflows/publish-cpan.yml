@@ -19,10 +19,13 @@ jobs:
         with:
           install: |
             Module::Build
+            Test::Warnings
+            Test::More
+            Carp
+            Scalar::Util
+            SUPER
       - name: Configure
         run: perl Build.PL
-      - name: install more deps
-        run: ./Build installdeps
       - name: Test
         run: ./Build test
       - name: Build
