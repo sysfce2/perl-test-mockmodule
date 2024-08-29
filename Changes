@@ -1,5 +1,8 @@
 Revision history for Test::MockModule
 
+v0.179.0
+- 82881df - Bump Module::Build requirement by @atoomic in #65
+
 v0.178.0
 - 6724a30 - Simplify CI workflow - Nicolas R
 - 1801372 - Multiple improvements -  Nicolas R
