@@ -24,6 +24,7 @@ jobs:
             Carp
             Scalar::Util
             SUPER
+            Software::License
       - name: Configure
         run: perl Build.PL
       - name: Test
