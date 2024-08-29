@@ -31,6 +31,8 @@ jobs:
         run: ./Build test
       - name: Build
         run: ./Build 
+      - name: Build Manifest
+        run: ./Build manifest
       - name: Deliver locally
         run: ./Build dist
       - name: Upload to CPAN
