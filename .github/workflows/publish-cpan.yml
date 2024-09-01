@@ -1,0 +1,43 @@
+name: Publish to CPAN
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  publish-ui:
+    name: Publish to CPAN
+    runs-on: ubuntu-latest
+    environment: Release
+    steps:
+      - uses: actions/checkout@v2
+      - name: update-version
+        run: |
+          sed -i "s/^\\\$VERSION = '.*';/\\\$VERSION = '${GITHUB_REF_NAME}';/" lib/Test/MockModule.pm
+      - name: install cpanm and multiple modules
+        uses: perl-actions/install-with-cpanm@v1
+        with:
+          install: |
+            Module::Build
+            Test::Warnings
+            Test::More
+            Carp
+            Scalar::Util
+            SUPER
+            Software::License
+      - name: Configure
+        run: perl Build.PL
+      - name: Test
+        run: ./Build test
+      - name: Build
+        run: ./Build 
+      - name: Build Manifest
+        run: ./Build manifest
+      - name: Deliver locally
+        run: ./Build dist
+      - name: Upload to CPAN
+        id: upload
+        uses: thibaultduponchelle/action-upload-to-cpan@master
+        with:
+            username: ${{ secrets.USERNAME }}
+            password: ${{ secrets.PASSWORD }}
